@@ -1,0 +1,42 @@
+extends layout
+
+block content
+
+  h1= title
+  p Welcome to #{title}
+
+  ui#timelines
+    li a
+  
+  br
+  br
+  br
+
+  form(id="chatSend", action="")
+    input(id="chatText", autocomplete="off")
+    button(id="sendButton") 送信
+
+  script.
+    $(function () {
+      var socket = io();
+      $('form').submit(function() {
+        socket.emit('chat message', $('#chatText').val());
+        $('#chatText').val('');
+        return false;
+      });
+      socket.on('chat message', function(msg){
+        console.log(msg);
+        //$('#timeline').append($('li').text(msg));
+        $('#timelines').append('<li>' + msg + '</li>');
+      });
+    });
+
+  table
+    tr
+      th 名前
+      th 年齢
+      th 国
+    each profile in [["ゆり", "13", "日本"], ["たかし", "15", "日本"], ["トム", "14", "アメリカ"]]
+      tr
+        each val in profile
+          td #{val}
