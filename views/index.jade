@@ -30,13 +30,3 @@ block content
         $('#timelines').append('<li>' + msg + '</li>');
       });
     });
-
-  table
-    tr
-      th 名前
-      th 年齢
-      th 国
-    each profile in [["ゆり", "13", "日本"], ["たかし", "15", "日本"], ["トム", "14", "アメリカ"]]
-      tr
-        each val in profile
-          td #{val}
